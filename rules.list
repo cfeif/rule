@@ -1,0 +1,4 @@
+host, www.linkedin.com, PROXY
+host, www.bing.com, PROXY
+host-suffix, podcasts.apple.com, PROXY
+host, bookkeeper.itunes.apple.com, PROXY
