@@ -3,3 +3,4 @@ host, www.bing.com, 节点选择
 host-suffix, podcasts.apple.com, 节点选择
 host, bookkeeper.itunes.apple.com, 节点选择
 host-suffix, monopoly-poker.com, DIRECT
+host, ddfs-public.ddimg.mobi, DIRECT
