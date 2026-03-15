@@ -4,3 +4,6 @@ host-suffix, podcasts.apple.com, 节点选择
 host, bookkeeper.itunes.apple.com, 节点选择
 host-suffix, monopoly-poker.com, DIRECT
 host, ddfs-public.ddimg.mobi, DIRECT
+DOMAIN-SUFFIX,agoda.com,DIRECT
+DOMAIN-SUFFIX,agoda.net,DIRECT
+DOMAIN-SUFFIX,agoda.io,DIRECT
