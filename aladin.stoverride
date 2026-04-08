@@ -1,7 +1,7 @@
 name: Custom rules and groups
-desc: Update rules and groups
+desc: Override rule-providers, proxy-groups, and rules
 
-rule-providers:
+rule-providers: #!replace
   # Loyalsoldier core lists — direct from GitHub releases (no mirror needed, these are stable)
   icloud:
     type: http
@@ -162,7 +162,7 @@ rule-providers:
     path: ./ruleset/Microsoft_No_Resolve.yaml
     interval: 86400
 
-proxy-groups:
+proxy-groups: #!replace
   # ┌─────────────────────────────────────────────────────┐
   # │  CONTROL GROUP — manual selection of country groups  │
   # └─────────────────────────────────────────────────────┘
@@ -347,7 +347,7 @@ proxy-groups:
     type: select
     proxies: [Aladdin Network, 🚀 Auto Select, 🔄 Fallback, 🇭🇰 香港, 🇸🇬 新加坡, 🇯🇵 日本, 🇺🇸 美国, 🇹🇼 台湾, 🇰🇷 韩国, 送中, DIRECT]
 
-rules:
+rules: #!replace
   # ── Custom direct domains (local services, IoT, etc.) ──
   - 'DOMAIN,readapi.zziot.life,DIRECT'
   - 'DOMAIN-SUFFIX,s.outong-valve.com,DIRECT'
