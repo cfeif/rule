@@ -2,7 +2,6 @@ name: Custom rules and groups
 desc: Override rule-providers, proxy-groups, and rules
 
 rule-providers: #!replace
-  # Loyalsoldier core lists — direct from GitHub releases (no mirror needed, these are stable)
   icloud:
     type: http
     behavior: domain
@@ -39,8 +38,6 @@ rule-providers: #!replace
     url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt'
     path: ./ruleset/applications.yaml
     interval: 86400
-
-  # Service-specific rulesets via ghfast mirror
   wechat:
     type: http
     behavior: classical
@@ -163,9 +160,7 @@ rule-providers: #!replace
     interval: 86400
 
 proxy-groups: #!replace
-  # ┌─────────────────────────────────────────────────────┐
-  # │  CONTROL GROUP — manual selection of country groups  │
-  # └─────────────────────────────────────────────────────┘
+  # ── CONTROL GROUP ──────────────────────────────────────────
   - name: Aladdin Network
     type: select
     proxies:
@@ -180,80 +175,81 @@ proxy-groups: #!replace
       - 送中
       - DIRECT
 
-  # ┌──────────────────────────────────────────────────────┐
-  # │  AUTO & FALLBACK — latency-based automatic selection  │
-  # └──────────────────────────────────────────────────────┘
+  # ── AUTO & FALLBACK ────────────────────────────────────────
   - name: 🚀 Auto Select
     type: url-test
+    include-all: true
+    filter: '^(?!.*(剩余|距离|套餐|免登))'
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
-    filter: '^(?!.*?(剩余|距离|套餐|免登)).*'
 
   - name: 🔄 Fallback
     type: fallback
+    include-all: true
+    filter: '^(?!.*(剩余|距离|套餐|免登))'
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
-    filter: '^(?!.*?(剩余|距离|套餐|免登)).*'
 
-  # ┌────────────────────────────────────────────────────────────────────┐
-  # │  COUNTRY GROUPS — url-test (best node auto-selected), regex filter  │
-  # └────────────────────────────────────────────────────────────────────┘
+  # ── COUNTRY GROUPS (url-test + include-all + filter) ───────
   - name: 🇭🇰 香港
     type: url-test
+    include-all: true
+    filter: '香港'
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
-    filter: '(香港)'
 
   - name: 🇸🇬 新加坡
     type: url-test
+    include-all: true
+    filter: '新加坡'
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
-    filter: '新加坡'
 
   - name: 🇯🇵 日本
     type: url-test
+    include-all: true
+    filter: '日本'
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
-    filter: '日本'
 
   - name: 🇺🇸 美国
     type: url-test
+    include-all: true
+    filter: '美国'
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
-    filter: '美国'
 
   - name: 🇹🇼 台湾
     type: url-test
+    include-all: true
+    filter: '台湾'
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
-    filter: '台湾'
 
   - name: 🇰🇷 韩国
     type: url-test
+    include-all: true
+    filter: '韩国'
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
-    filter: '韩国'
 
-  # ┌──────────────────────────────────────────────────────────────────────┐
-  # │  送中 — HK nodes 06–10 specifically, for YouTube & CN-friendly media  │
-  # └──────────────────────────────────────────────────────────────────────┘
+  # ── 送中: HK nodes 06–10 only ──────────────────────────────
   - name: 送中
     type: url-test
+    include-all: true
+    filter: '香港0[6-9]|香港10'
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
-    filter: '香港0[6-9]|香港10'
 
-  # ┌──────────────────────────────────────────────────────┐
-  # │  SERVICE GROUPS — select, default to Aladdin Network  │
-  # └──────────────────────────────────────────────────────┘
+  # ── SERVICE GROUPS ─────────────────────────────────────────
   - name: Telegram
     type: select
     proxies: [Aladdin Network, 🚀 Auto Select, 🇭🇰 香港, 🇸🇬 新加坡, 🇯🇵 日本, 🇺🇸 美国, 🇹🇼 台湾, 🇰🇷 韩国, DIRECT]
@@ -270,7 +266,6 @@ proxy-groups: #!replace
     type: select
     proxies: [Aladdin Network, 🚀 Auto Select, 🇭🇰 香港, 🇺🇸 美国, 🇯🇵 日本, 🇸🇬 新加坡, 🇹🇼 台湾, DIRECT]
 
-  # YouTube defaults to 送中 (HK06–10) — good for CN-licensed content & low latency
   - name: Google YouTube
     type: select
     proxies: [送中, Aladdin Network, 🚀 Auto Select, 🇭🇰 香港, 🇸🇬 新加坡, 🇯🇵 日本, 🇺🇸 美国, 🇹🇼 台湾, DIRECT]
@@ -348,12 +343,12 @@ proxy-groups: #!replace
     proxies: [Aladdin Network, 🚀 Auto Select, 🔄 Fallback, 🇭🇰 香港, 🇸🇬 新加坡, 🇯🇵 日本, 🇺🇸 美国, 🇹🇼 台湾, 🇰🇷 韩国, 送中, DIRECT]
 
 rules: #!replace
-  # ── Custom direct domains (local services, IoT, etc.) ──
+  # ── Custom direct domains ──
   - 'DOMAIN,readapi.zziot.life,DIRECT'
   - 'DOMAIN-SUFFIX,s.outong-valve.com,DIRECT'
   - 'DOMAIN-SUFFIX,ectrip.com,DIRECT'
 
-  # ── Custom direct IPs (CN cloud servers) ──
+  # ── Custom direct IPs (CN cloud) ──
   - 'IP-CIDR,8.134.152.191/32,DIRECT,no-resolve'
   - 'IP-CIDR,8.134.107.77/32,DIRECT,no-resolve'
   - 'IP-CIDR,8.134.250.119/32,DIRECT,no-resolve'
@@ -362,7 +357,7 @@ rules: #!replace
   - 'IP-CIDR,8.138.251.121/32,DIRECT,no-resolve'
   - 'IP-CIDR,8.138.59.17/32,DIRECT,no-resolve'
 
-  # ── Aladdin provider & related domains ──
+  # ── Aladdin provider domains ──
   - 'DOMAIN-SUFFIX,dlandroid.rcv.sandai.net,Aladdin Network'
   - 'DOMAIN-SUFFIX,embylife.xyz,Aladdin Network'
   - 'DOMAIN-SUFFIX,emby.moe,Aladdin Network'
@@ -380,10 +375,10 @@ rules: #!replace
   - 'DOMAIN-SUFFIX,ltdflix.space,Aladdin Network'
   - 'DOMAIN-SUFFIX,thisgourl.xyz,Aladdin Network'
 
-  # ── Process rules: proxy manager itself ──
+  # ── Proxy manager ──
   - 'PROCESS-NAME,verge-mihomo.exe,DIRECT'
 
-  # ── Process rules: CN apps & system processes → DIRECT ──
+  # ── CN apps ──
   - 'PROCESS-NAME,Weixin.exe,DIRECT'
   - 'PROCESS-NAME,WeChat.exe,DIRECT'
   - 'PROCESS-NAME,WeChatAppEx.exe,DIRECT'
@@ -412,7 +407,7 @@ rules: #!replace
   - 'PROCESS-NAME,OcxConfigClient.exe,DIRECT'
   - 'PROCESS-NAME,GacRunner.exe,DIRECT'
 
-  # ── Process rules: stock/finance tools → DIRECT ──
+  # ── Stock/finance ──
   - 'PROCESS-NAME,hexin.exe,DIRECT'
   - 'PROCESS-NAME,hexinhelper.exe,DIRECT'
   - 'PROCESS-NAME,hexinlauncher.exe,DIRECT'
@@ -422,7 +417,7 @@ rules: #!replace
   - 'PROCESS-NAME,QQPCRTP.exe,DIRECT'
   - 'PROCESS-NAME,QQPCTray.exe,DIRECT'
 
-  # ── Process rules: crypto/web3 apps → DIRECT (use Crypto rule-set for traffic) ──
+  # ── Crypto/Web3 ──
   - 'PROCESS-NAME,Binance.exe,DIRECT'
   - 'PROCESS-NAME,OKX.exe,DIRECT'
   - 'PROCESS-NAME,tidecoin-qt.exe,DIRECT'
@@ -432,7 +427,7 @@ rules: #!replace
   - 'PROCESS-NAME,HyperPlay.exe,DIRECT'
   - 'PROCESS-NAME,desktop.exe,DIRECT'
 
-  # ── Process rules: games → DIRECT ──
+  # ── Games ──
   - 'PROCESS-NAME,MadGlobal-Win64-Shipping.exe,DIRECT'
   - 'PROCESS-NAME,MadGlobal.exe,DIRECT'
   - 'PROCESS-NAME,NightCrowsGLauncher.exe,DIRECT'
@@ -441,7 +436,7 @@ rules: #!replace
   - 'PROCESS-NAME,dnplayer.exe,DIRECT'
   - 'PROCESS-NAME,dnmultiplayerex.exe,DIRECT'
 
-  # ── Process rules: Windows system processes → DIRECT ──
+  # ── Windows system ──
   - 'PROCESS-NAME,svchost.exe,DIRECT'
   - 'PROCESS-NAME,smss.exe,DIRECT'
   - 'PROCESS-NAME,wininit.exe,DIRECT'
