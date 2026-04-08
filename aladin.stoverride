@@ -1,3 +1,6 @@
+name: Custom rules and groups
+desc: Update rules and groups
+
 rule-providers:
   # Loyalsoldier core lists — direct from GitHub releases (no mirror needed, these are stable)
   icloud:
