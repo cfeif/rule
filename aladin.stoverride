@@ -204,7 +204,7 @@ proxy-groups: #!replace
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
-    filter: '香港'
+    filter: '(香港)'
 
   - name: 🇸🇬 新加坡
     type: url-test
