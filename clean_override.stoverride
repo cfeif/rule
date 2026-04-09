@@ -20,6 +20,10 @@ dns: #!replace
   # DNS servers to use when resolving normal domains
   nameserver:
     - https://dns.alidns.com/dns-query # AliDNS over HTTPS
+  
+  nameserver-policy:
+      "geoip:cn": system
+      '*.digital-nvme.com': '8.138.94.132:8053'
 
 # ── Proxy Groups ──────────────────────────────────────────────────────────────
 proxy-groups: #!replace
