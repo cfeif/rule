@@ -53,7 +53,7 @@ proxy-groups: #!replace
 
   # 香港06-10 — for YouTube to CN
   - name: "中"
-    type: urlt-test
+    type: url-test
     include-all: true
     filter: "香港0[6-9]|香港10"
     interval: 300
