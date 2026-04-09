@@ -277,9 +277,9 @@ rules: #!replace
 
   # 4. Apple: podcast + bookkeeper exceptions BEFORE the apple rule-set
   #    (apple rule-set routes all of apple.com to 🍎 Apple → DIRECT by default)
-  - DOMAIN,podcasts.apple.com,🚀 Proxy
-  - DOMAIN,podcastsservices.apple.com,🚀 Proxy
-  - DOMAIN,bookkeeper.itunes.apple.com,🚀 Proxy
+  - DOMAIN-SUFFIX,podcasts.apple.com,🚀 Proxy
+  - DOMAIN-SUFFIX,podcastsservices.apple.com,🚀 Proxy
+  - DOMAIN-SUFFIX,bookkeeper.itunes.apple.com,🚀 Proxy
   - RULE-SET,apple,🍎 苹果
 
   # 5. Streaming
