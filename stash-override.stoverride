@@ -59,9 +59,7 @@ dns: #!replace
   # geoip:cn → CN DNS; *.digital-nvme.com → proxy provider's custom
   # DNS resolver (required for node hostname resolution)
   nameserver-policy: #!replace
-    "geoip:cn":
-      - system
-      - 223.5.5.5
+    "geoip:cn": system
     '*.digital-nvme.com': '8.138.94.132:8053'
 
   fake-ip-filter: #!replace
