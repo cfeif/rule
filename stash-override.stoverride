@@ -23,7 +23,6 @@ ipv6: false
 unified-delay: true
 tcp-concurrent: true
 external-controller: 0.0.0.0:9090
-secret: "changeme"     # ⚠️ Set before use
 
 profile:
   store-selected: true
