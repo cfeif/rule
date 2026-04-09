@@ -53,37 +53,16 @@ dns: #!replace
   # Plain CN DNS — fast, and respect-rules routes foreign DNS through
   # the proxy so ISP never sees those queries anyway
   nameserver: #!replace
+    - system
     - 223.5.5.5
-    - 119.29.29.29
 
   # geoip:cn → CN DNS; *.digital-nvme.com → proxy provider's custom
   # DNS resolver (required for node hostname resolution)
   nameserver-policy: #!replace
-    "geoip:cn": "223.5.5.5"
+    "geoip:cn":
+      - system
+      - 223.5.5.5
     '*.digital-nvme.com': '8.138.94.132:8053'
-
-  fallback: #!replace
-    - "https://dns.cloudflare.com/dns-query"
-    - "https://doh.dns.sb/dns-query"
-
-  fallback-filter: #!replace
-    geoip: true
-    geoip-code: CN
-    geosite:
-      - gfw
-    ipcidr:
-      - 240.0.0.0/4
-    domain:
-      - "+.google.com"
-      - "+.facebook.com"
-      - "+.youtube.com"
-      - "+.twitter.com"
-      - "+.instagram.com"
-      - "+.telegram.org"
-      - "+.github.com"
-      - "+.github.io"
-      - "+.openai.com"
-      - "+.claude.ai"
 
   fake-ip-filter: #!replace
     - "*.lan"
