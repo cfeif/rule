@@ -37,11 +37,10 @@ proxy-groups: #!replace
       - "🇺🇸 US"
       - "🇹🇼 TW"
       - "🇰🇷 KR"
-      - "中"
+      - "🇨🇳 CN"
       - "⚡ 自动选择"
       - "♻️ 故障转移"
       - DIRECT
-    include-all: true
 
   # ── Regional url-test (auto best-latency within region) ───────────────────
   - name: "🇭🇰 HK"
@@ -52,7 +51,7 @@ proxy-groups: #!replace
     lazy: true
 
   # 香港06-10 — for YouTube to CN
-  - name: "中"
+  - name: "🇨🇳 CN"
     type: url-test
     include-all: true
     filter: "香港0[6-9]|香港10"
@@ -135,6 +134,12 @@ proxy-groups: #!replace
       - "🇭🇰 HK"
       - "🚀 Proxy"
       - DIRECT
+
+  - name: "▶️ YouTube"
+    type: select
+    proxies:
+      - "🇨🇳 CN"
+      - "🚀 Proxy"
 
   - name: "🍎 苹果"
     type: select
@@ -270,7 +275,7 @@ rules: #!replace
   - RULE-SET,google,🤖 AI
 
   # 5. Streaming
-  - RULE-SET,youtube,📺 流媒体
+  - RULE-SET,youtube,▶️ YouTube
   - RULE-SET,netflix,📺 流媒体
   - RULE-SET,disney,📺 流媒体
   - RULE-SET,hbo,📺 流媒体
