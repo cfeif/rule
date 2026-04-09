@@ -17,8 +17,10 @@ desc: Speed > 开屏广告 removal > Privacy | Apple TV tvOS gateway
 # ── General (merged onto managed config) ────────────────────────
 allow-lan: true
 bind-address: "*"
+mode: rule
 log-level: warning
 ipv6: false
+unified-delay: true
 tcp-concurrent: true
 external-controller: 0.0.0.0:9090
 secret: "changeme"     # ⚠️ Set before use
@@ -26,68 +28,94 @@ secret: "changeme"     # ⚠️ Set before use
 profile:
   store-selected: true
   store-fake-ip: true
+  tracing: false        # managed config has tracing: true — disable for privacy
+
+experimental:
+  sniff-tls-sni: true
 
 # ── DNS ─────────────────────────────────────────────────────────
-dns: #!replace
+# dns: merges (no top-level #!replace). We use nested #!replace on
+# sub-arrays/dicts we want to fully replace.
+#
+# Key design choices vs reference:
+#   respect-rules: true  — DNS queries follow routing rules; foreign
+#     domain DNS resolves inside the tunnel instead of leaking. This
+#     makes plain CN DNS on nameserver sufficient and safe.
+#   nameserver-policy: #!replace  — only geoip:cn → CN DNS. Drops the
+#     managed config's custom *.digital-nvme.com entry, which is fine
+#     because that domain is CN-geolocated and resolves correctly via
+#     223.5.5.5 / 119.29.29.29 with respect-rules routing it DIRECT.
+dns:
   enable: true
-  listen: 0.0.0.0:53
+  listen: "0.0.0.0:53"
   ipv6: false
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
+  use-hosts: false
+  respect-rules: true
 
-  fake-ip-filter:
-    - "*.lan"
-    - "*.local"
-    - "*.arpa"
-    - "localhost.ptlogin2.qq.com"
-    - "+.msftconnecttest.com"
-    - "+.msftncsi.com"
-    # Apple — push / iCloud break with fake IPs
-    - "+.apple.com"
-    - "+.icloud.com"
-    - "+.icloud.com.cn"
-    - "captive.apple.com"
-    - "atv.apple.com"
-    # NTP
-    - "time.apple.com"
-    - "time.windows.com"
-    - "time.cloudflare.com"
-    - "pool.ntp.org"
-    - "+.ntp.org"
+  default-nameserver: #!replace
+    - 223.5.5.5
+    - 119.29.29.29
 
-  # Bootstrap — plain UDP, only used to resolve DoH hostnames
-  default-nameserver:
-    - 223.5.5.5        # Alibaba — best latency on CT Shenzhen
-    - 119.29.29.29     # DNSPod/Tencent
+  # Plain CN DNS — fast, and respect-rules routes foreign DNS through
+  # the proxy so ISP never sees those queries anyway
+  nameserver: #!replace
+    - 223.5.5.5
+    - 119.29.29.29
 
-  # Primary: encrypted domestic DNS
-  nameserver:
-    - https://doh.pub/dns-query
-    - https://dns.alidns.com/dns-query
+  # geoip:cn → CN DNS only; all else falls through to fallback via
+  # respect-rules routing
+  nameserver-policy: #!replace
+    "geoip:cn":
+      - 223.5.5.5
+      - 119.29.29.29
 
-  # Fallback: for GFW-poisoned/blocked foreign domains
-  fallback:
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
-    - tls://8.8.8.8:853
+  fallback: #!replace
+    - "https://dns.cloudflare.com/dns-query"
+    - "https://doh.dns.sb/dns-query"
 
-  fallback-filter:
+  fallback-filter: #!replace
     geoip: true
     geoip-code: CN
+    geosite:
+      - gfw
     ipcidr:
       - 240.0.0.0/4
-      - 0.0.0.0/32
     domain:
       - "+.google.com"
+      - "+.facebook.com"
       - "+.youtube.com"
       - "+.twitter.com"
-      - "+.facebook.com"
       - "+.instagram.com"
       - "+.telegram.org"
       - "+.github.com"
       - "+.github.io"
       - "+.openai.com"
       - "+.claude.ai"
+
+  fake-ip-filter: #!replace
+    - "*.lan"
+    - "+.local"           # +. matches domain itself + all subdomains
+    - "+.arpa"
+    - "localhost.ptlogin2.qq.com"
+    - "msftconnecttest.com"
+    - "msftncsi.com"
+    # Apple NTP + captive portal — must get real IPs
+    - "captive.apple.com"
+    - "time.apple.com"
+    - "time-ios.apple.com"
+    - "time-macos.apple.com"
+    # iCloud — real IPs needed for push / sync stability
+    - "+.icloud.com"
+    - "+.icloud.com.cn"
+    # ATV connectivity check
+    - "atv.apple.com"
+    # NTP pool
+    - "time.windows.com"
+    - "time.cloudflare.com"
+    - "pool.ntp.org"
+    - "+.ntp.org"
 
 # ── Script shortcuts ─────────────────────────────────────────────
 # quic: matches HTTP/3 (UDP/443) — used to block QUIC and force TCP,
