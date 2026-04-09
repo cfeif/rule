@@ -1,0 +1,292 @@
+name: Aladdin Override
+desc: Clean override for Aladdin profile
+
+# ── Script shortcuts ──────────────────────────────────────────────────────────
+# QUIC (HTTP/3, UDP/443) bypasses TCP-based proxy protocols.
+# Rejecting it forces browser fallback to TCP/TLS, which routes correctly.
+script:
+  shortcuts:
+    quic: network == 'udp' and dst_port == 443
+
+# ── DNS ───────────────────────────────────────────────────────────────────────
+dns: #!replace
+
+  # DNS servers to use when resolving DNS domains
+  default-nameserver:
+    - 223.5.5.5       # AliDNS
+    - 114.114.114.114 # 114DNS
+    - system          # System DNS (from DHCP)
+  
+  # DNS servers to use when resolving normal domains
+  nameserver:
+    - https://dns.alidns.com/dns-query # AliDNS over HTTPS
+
+# ── Proxy Groups ──────────────────────────────────────────────────────────────
+proxy-groups: #!replace
+
+  # ── Master selector ────────────────────────────────────────────────────────
+  # Switch region here; all service groups point to 🚀 Proxy by default.
+  # include-all exposes individual nodes below the regional groups for
+  # manual selection if needed.
+  - name: "🚀 Proxy"
+    type: select
+    proxies:
+      - "🇭🇰 HK"
+      - "🇸🇬 SG"
+      - "🇯🇵 JP"
+      - "🇺🇸 US"
+      - "🇹🇼 TW"
+      - "🇰🇷 KR"
+      - "中"
+      - "⚡ 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+    include-all: true
+
+  # ── Regional url-test (auto best-latency within region) ───────────────────
+  - name: "🇭🇰 HK"
+    type: url-test
+    include-all: true
+    filter: "香港0[1-5]"
+    interval: 300
+    lazy: true
+
+  # 香港06-10 — for YouTube to CN
+  - name: "中"
+    type: urlt-test
+    include-all: true
+    filter: "香港0[6-9]|香港10"
+    interval: 300
+    lazy: true
+
+  - name: "🇸🇬 SG"
+    type: url-test
+    include-all: true
+    filter: "新加坡|狮城|SG|Singapore"
+    interval: 300
+    lazy: true
+
+  - name: "🇯🇵 JP"
+    type: url-test
+    include-all: true
+    filter: "日本|东京|大阪|JP|Japan"
+    interval: 300
+    lazy: true
+
+  - name: "🇺🇸 US"
+    type: url-test
+    include-all: true
+    filter: "美国|洛杉矶|硅谷|纽约|US|United States|America"
+    interval: 300
+    lazy: true
+
+  - name: "🇹🇼 TW"
+    type: url-test
+    include-all: true
+    filter: "台湾|臺灣|TW|Taiwan"
+    interval: 300
+    lazy: true
+
+  - name: "🇰🇷 KR"
+    type: url-test
+    include-all: true
+    filter: "韩国|韓國|KR|Korea"
+    interval: 300
+    lazy: true
+
+  # ── Resilience groups ──────────────────────────────────────────────────────
+  # fallback: health-checks all nodes, uses first available in list order
+  - name: "♻️ 故障转移"
+    type: fallback
+    include-all: true
+    interval: 300
+    lazy: true
+
+  # url-test across all nodes: pure lowest-latency, ignores region
+  - name: "⚡ 自动选择"
+    type: url-test
+    include-all: true
+    interval: 300
+    lazy: true
+
+  # - name: "🎯 手动选择"
+  #   type: select
+  #   include-all: true
+  #   interval: 300
+  #   lazy: true
+
+  # ── Service groups ─────────────────────────────────────────────────────────
+
+  - name: "🤖 AI"
+    type: select
+    proxies:
+      - "🇺🇸 US"
+      - "🇸🇬 SG"
+      - "🇯🇵 JP"
+      - "🚀 Proxy"
+      - DIRECT
+
+  - name: "📺 流媒体"
+    type: select
+    proxies:
+      - "🇸🇬 SG"
+      - "🇯🇵 JP"
+      - "🇺🇸 US"
+      - "🇭🇰 HK"
+      - "🚀 Proxy"
+      - DIRECT
+
+  - name: "🍎 苹果"
+    type: select
+    proxies:
+      - DIRECT
+      - "🚀 Proxy"
+      - "🇺🇸 US"
+      - "🇭🇰 HK"
+
+  - name: "🛑 广告"
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: "🐟 Final"
+    type: select
+    proxies:
+      - "🚀 Proxy"
+      - DIRECT
+      - REJECT
+
+# ── Rule Providers ─────────────────────────────────────────────────────────────
+# blackmatrix7: per-service, granular, ~daily updates
+# Loyalsoldier: authoritative broad CN/GFW/CIDR categories
+# _No_Resolve variants prevent unnecessary DNS resolution for IP-based rules.
+rule-providers: #!replace
+
+  # ── AI (blackmatrix7) ──────────────────────────────────────────────────────
+  openai:
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI_No_Resolve.yaml"
+    interval: 86400
+
+  claude:
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Claude/Claude.yaml"
+    interval: 86400
+
+  # Google covers Search / Maps / GCP / Gemini — excludes YouTube (separate set)
+  google:
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Google/Google_No_Resolve.yaml"
+    interval: 86400
+
+  # ── Streaming (blackmatrix7) ───────────────────────────────────────────────
+  youtube:
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YouTube/YouTube_No_Resolve.yaml"
+    interval: 86400
+
+  netflix:
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Netflix/Netflix_No_Resolve.yaml"
+    interval: 86400
+
+  disney:
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Disney/Disney_No_Resolve.yaml"
+    interval: 86400
+
+  hbo:
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HBO/HBO_No_Resolve.yaml"
+    interval: 86400
+
+  primevideo:
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PrimeVideo/PrimeVideo_No_Resolve.yaml"
+    interval: 86400
+
+  # Apple
+  apple:
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple_No_Resolve.yaml"
+    interval: 86400
+
+  # ── Broad CN / GFW categories (Loyalsoldier) ──────────────────────────────
+  direct:
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
+    interval: 86400
+
+  # Proxy tool processes (shadowsocks, sing-box, etc.) — prevent routing loops
+  applications:
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt"
+    interval: 86400
+
+  cncidr:
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
+    interval: 86400
+
+  lancidr:
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
+    interval: 86400
+
+  gfw:
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
+    interval: 86400
+
+  tld-not-cn:
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt"
+    interval: 86400
+
+# ── Rules ─────────────────────────────────────────────────────────────────────
+# Order matters — first match wins.
+# Line-by-line rules are kept only for podcasts/bookkeeper (no rule-set covers
+# them at required granularity) and the QUIC script shortcut.
+rules: #!replace
+
+  # 1. LAN + private IPs
+  - RULE-SET,lancidr,DIRECT,no-resolve
+  - GEOIP,LAN,DIRECT,no-resolve
+
+  # 2. Block QUIC / HTTP3
+  - SCRIPT,quic,REJECT
+
+  # 3. Apple: podcast + bookkeeper exceptions BEFORE the apple rule-set
+  #    (apple rule-set routes all of apple.com to 🍎 Apple → DIRECT by default)
+  - DOMAIN,podcasts.apple.com,🚀 Proxy
+  - DOMAIN,podcastsservices.apple.com,🚀 Proxy
+  - DOMAIN,bookkeeper.itunes.apple.com,🚀 Proxy
+  - RULE-SET,apple,🍎 苹果
+
+  # 4. AI services
+  - RULE-SET,openai,🤖 AI
+  - RULE-SET,claude,🤖 AI
+  - RULE-SET,google,🤖 AI
+
+  # 5. Streaming
+  - RULE-SET,youtube,📺 流媒体
+  - RULE-SET,netflix,📺 流媒体
+  - RULE-SET,disney,📺 流媒体
+  - RULE-SET,hbo,📺 流媒体
+  - RULE-SET,primevideo,📺 流媒体
+
+  # 6. CN services → direct
+  - RULE-SET,direct,DIRECT
+  - RULE-SET,applications,DIRECT
+  - RULE-SET,cncidr,DIRECT,no-resolve
+
+  # 7. GFW-blocked + non-CN TLDs → proxy
+  - RULE-SET,gfw,🚀 Proxy
+  - RULE-SET,tld-not-cn,🚀 Proxy
+
+  # 8. CN IPs → direct
+  - GEOIP,CN,DIRECT
+
+  # 9. Everything else
+  - MATCH,🐟 Final
