@@ -1,0 +1,279 @@
+#SUBSCRIBED https://readapi.zziot.life/book/lists?token=fb2b1134ac7250b55f8297a8b4ab69b9
+port: 7890
+socks-port: 7891
+redir-port: 7892
+tproxy-port: 7893
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+external-controller: '127.0.0.1:9090'
+unified-delay: true
+dns:
+    enable: true
+    listen: '0.0.0.0:53'
+    ipv6: false
+    default-nameserver: [114.114.114.114, 119.29.29.29, 8.8.8.8]
+    enhanced-mode: fake-ip
+    fake-ip-range: 198.18.0.1/16
+    use-hosts: false
+    respect-rules: false
+    nameserver: [114.114.114.114, 119.29.29.29, 8.8.8.8, 223.5.5.5]
+    nameserver-policy: { 'geoip:cn': 114.114.114.114, '*.digital-nvme.com': '8.138.94.132:8053' }
+    fallback: [1.1.1.1, 8.8.8.8, 'https://doh.dns.sb/dns-query', 'https://dns.cloudflare.com/dns-query', 'https://dns.twnic.tw/dns-query']
+    fallback-filter: { geoip: true, geoip-code: CN, geosite: [gfw], ipcidr: [240.0.0.0/4], domain: [+.google.com, +.facebook.com, +.youtube.com] }
+clash-for-android:
+    append-system-dns: false
+profile:
+    tracing: true
+experimental:
+    sniff-tls-sni: true
+rule-providers:
+    icloud: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt', path: ./ruleset/icloud.yaml, interval: 86400 }
+    apple: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt', path: ./ruleset/apple.yaml, interval: 86400 }
+    gfw: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt', path: ./ruleset/gfw.yaml, interval: 86400 }
+    tld-not-cn: { type: http, behavior: domain, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt', path: ./ruleset/tld-not-cn.yaml, interval: 86400 }
+    telegramcidr: { type: http, behavior: ipcidr, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt', path: ./ruleset/telegramcidr.yaml, interval: 86400 }
+    applications: { type: http, behavior: classical, url: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt', path: ./ruleset/applications.yaml, interval: 86400 }
+    wechat: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/WeChat/WeChat_No_Resolve.yaml', path: ./ruleset/WeChat_No_Resolve.yaml, interval: 86400 }
+    bilibili: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/BiliBili/BiliBili_No_Resolve.yaml', path: ./ruleset/BiliBili_No_Resolve.yaml, interval: 86400 }
+    bahamut: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/Bahamut/Bahamut_No_Resolve.yaml', path: ./ruleset/Bahamut_No_Resolve.yaml, interval: 86400 }
+    steam: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/Steam/Steam_No_Resolve.yaml', path: ./ruleset/Steam_No_Resolve.yaml, interval: 86400 }
+    steamcn: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/SteamCN/SteamCN_No_Resolve.yaml', path: ./ruleset/SteamCN_No_Resolve.yaml, interval: 86400 }
+    github: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/GitHub/GitHub_No_Resolve.yaml', path: ./ruleset//GitHub_No_Resolve.yaml, interval: 86400 }
+    crypto: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/haha-miao/rule_file/refs/heads/main/clash/crypto/Crypto.yaml', path: ./ruleset/Crypto.yaml, interval: 86400 }
+    discord: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/Discord/Discord_No_Resolve.yaml', path: ./ruleset/Discord_No_Resolve.yaml, interval: 86400 }
+    openai: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/OpenAI/OpenAI_No_Resolve.yaml', path: ./ruleset/OpenAI_No_Resolve.yaml, interval: 86400 }
+    youtube: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/YouTube/YouTube_No_Resolve.yaml', path: ./ruleset/YouTube_No_Resolve.yaml, interval: 86400 }
+    netflix: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/Netflix/Netflix_Classical_No_Resolve.yaml', path: ./ruleset/Netflix_Classical_No_Resolve.yaml, interval: 86400 }
+    pikpak: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/PikPak/PikPak_No_Resolve.yaml', path: ./ruleset/PikPak_No_Resolve.yaml, interval: 86400 }
+    disney: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/Disney/Disney_No_Resolve.yaml', path: ./ruleset/Disney_No_Resolve.yaml, interval: 86400 }
+    hbo: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/HBO/HBO_No_Resolve.yaml', path: ./ruleset/HBO_No_Resolve.yaml, interval: 86400 }
+    globalmedia: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/GlobalMedia/GlobalMedia_Classical_No_Resolve.yaml', path: ./ruleset/GlobalMedia_Classical_No_Resolve.yaml, interval: 86400 }
+    google: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/Google/Google_No_Resolve.yaml', path: ./ruleset/Google_No_Resolve.yaml, interval: 86400 }
+    paypal: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/PayPal/PayPal_No_Resolve.yaml', path: ./ruleset/PayPal_No_Resolve.yaml, interval: 86400 }
+    twitter: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/Twitter/Twitter_No_Resolve.yaml', path: ./ruleset/Twitter_No_Resolve.yaml, interval: 86400 }
+    Claude: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/master/rule/Clash/Claude/Claude.yaml', path: ./ruleset/Claude.yaml, interval: 86400 }
+    Microsoft: { type: http, behavior: classical, url: 'https://ghfast.top/https://raw.githubusercontent.com/ericz15/ios_rule_script/refs/heads/master/rule/Clash/Microsoft/Microsoft_No_Resolve.yaml', path: ./ruleset/Microsoft_No_Resolve.yaml, interval: 86400 }
+proxies:
+    - { name: '剩余流量：98.83 GB', type: trojan, server: china-cn.digital-nvme.com, port: 57001, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '距离下次重置剩余：22 天', type: trojan, server: china-cn.digital-nvme.com, port: 57001, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 套餐到期：2026-05-08, type: trojan, server: china-cn.digital-nvme.com, port: 57001, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 香港01, type: trojan, server: china-cn.digital-nvme.com, port: 57001, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 香港02, type: trojan, server: china-cn.digital-nvme.com, port: 57002, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 香港03, type: trojan, server: china-cn.digital-nvme.com, port: 57003, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 香港04, type: trojan, server: china-cn.digital-nvme.com, port: 57004, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 香港05, type: trojan, server: china-cn.digital-nvme.com, port: 57005, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 香港06, type: trojan, server: china-cn.digital-nvme.com, port: 57006, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 香港07, type: trojan, server: china-cn.digital-nvme.com, port: 57007, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 香港08, type: trojan, server: china-cn.digital-nvme.com, port: 57008, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 香港09, type: trojan, server: china-cn.digital-nvme.com, port: 57009, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 香港10, type: trojan, server: china-cn.digital-nvme.com, port: 57010, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 新加坡01, type: trojan, server: china-cn.digital-nvme.com, port: 57021, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 新加坡02, type: trojan, server: china-cn.digital-nvme.com, port: 57022, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 新加坡03, type: trojan, server: china-cn.digital-nvme.com, port: 57023, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 新加坡04, type: trojan, server: china-cn.digital-nvme.com, port: 57024, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 新加坡05, type: trojan, server: china-cn.digital-nvme.com, port: 57025, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 新加坡06, type: trojan, server: china-cn.digital-nvme.com, port: 57026, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 新加坡07, type: trojan, server: china-cn.digital-nvme.com, port: 57027, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 免登流媒体, type: trojan, server: china-cn.digital-nvme.com, port: 57301, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 日本01, type: trojan, server: china-cn.digital-nvme.com, port: 57041, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 日本02, type: trojan, server: china-cn.digital-nvme.com, port: 57042, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 日本03, type: trojan, server: china-cn.digital-nvme.com, port: 57043, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 日本04, type: trojan, server: china-cn.digital-nvme.com, port: 57044, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 日本05, type: trojan, server: china-cn.digital-nvme.com, port: 57045, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 美国01, type: trojan, server: china-cn.digital-nvme.com, port: 57061, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 美国02, type: trojan, server: china-cn.digital-nvme.com, port: 57062, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 美国03, type: trojan, server: china-cn.digital-nvme.com, port: 57063, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 美国04, type: trojan, server: china-cn.digital-nvme.com, port: 57064, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 美国05, type: trojan, server: china-cn.digital-nvme.com, port: 57065, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 台湾01, type: trojan, server: china-cn.digital-nvme.com, port: 57081, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 台湾02, type: trojan, server: china-cn.digital-nvme.com, port: 57082, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 台湾03, type: trojan, server: china-cn.digital-nvme.com, port: 57483, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 台湾04, type: trojan, server: china-cn.digital-nvme.com, port: 57084, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 台湾05, type: trojan, server: china-cn.digital-nvme.com, port: 57085, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 韩国01, type: trojan, server: china-cn.digital-nvme.com, port: 57101, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 韩国02, type: trojan, server: china-cn.digital-nvme.com, port: 57102, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 印度尼西亚, type: trojan, server: china-cn.digital-nvme.com, port: 57103, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 意大利, type: trojan, server: china-cn.digital-nvme.com, port: 57104, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 澳大利亚, type: trojan, server: china-cn.digital-nvme.com, port: 57105, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 越南, type: trojan, server: china-cn.digital-nvme.com, port: 57106, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '马来西亚[3.0]', type: trojan, server: china-cn.digital-nvme.com, port: 57107, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '澳门 [2.0]', type: trojan, server: china-cn.digital-nvme.com, port: 57108, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '菲律宾 [2.0]', type: trojan, server: china-cn.digital-nvme.com, port: 57109, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '柬埔寨 [2.0]', type: trojan, server: china-cn.digital-nvme.com, port: 57110, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '老挝 [2.0]', type: trojan, server: china-cn.digital-nvme.com, port: 57111, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '缅甸 [2.0]', type: trojan, server: china-cn.digital-nvme.com, port: 57112, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '巴基斯坦 [2.0]', type: trojan, server: china-cn.digital-nvme.com, port: 57113, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '阿根廷 [2.0]', type: trojan, server: china-cn.digital-nvme.com, port: 57114, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '埃及 [2.0]', type: trojan, server: china-cn.digital-nvme.com, port: 57115, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 迪拜, type: trojan, server: china-cn.digital-nvme.com, port: 57201, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 法国, type: trojan, server: china-cn.digital-nvme.com, port: 57202, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 荷兰, type: trojan, server: china-cn.digital-nvme.com, port: 57203, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 瑞典, type: trojan, server: china-cn.digital-nvme.com, port: 57204, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 沙特阿拉伯, type: trojan, server: china-cn.digital-nvme.com, port: 57205, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 以色列, type: trojan, server: china-cn.digital-nvme.com, port: 57206, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 南非, type: trojan, server: china-cn.digital-nvme.com, port: 57207, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 巴西, type: trojan, server: china-cn.digital-nvme.com, port: 57208, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 德国, type: trojan, server: china-cn.digital-nvme.com, port: 57209, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: '尼日利亚[3.0]', type: trojan, server: china-cn.digital-nvme.com, port: 57210, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 土耳其, type: trojan, server: china-cn.digital-nvme.com, port: 57211, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+    - { name: 英国, type: trojan, server: china-cn.digital-nvme.com, port: 57212, password: 42eb279f-bc56-4cb3-a71f-df77ac2d295b, udp: true, sni: mmbiz.qpic.cn, skip-cert-verify: true }
+proxy-groups:
+    - { name: Aladdin Network, type: select, proxies: ['剩余流量：98.83 GB', '距离下次重置剩余：22 天', 套餐到期：2026-05-08, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Telegram, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: ChatGPT, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Claude, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: 'Google2 Gemini', type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Bili, type: select, proxies: [DIRECT, Aladdin Network, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Bahamut, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Github, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Crypto, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Discord, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: 'Google1 Youtube', type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Netflix, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Disney, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Pikpak, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: HBO, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: OtherMedia, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Paypal, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Twitter, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Apple, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: WeChat, type: select, proxies: [DIRECT, Aladdin Network, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Steam, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: SteamCN, type: select, proxies: [DIRECT, Aladdin Network, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Microsoft, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+    - { name: Final, type: select, proxies: [Aladdin Network, DIRECT, 香港01, 香港02, 香港03, 香港04, 香港05, 香港06, 香港07, 香港08, 香港09, 香港10, 新加坡01, 新加坡02, 新加坡03, 新加坡04, 新加坡05, 新加坡06, 新加坡07, 免登流媒体, 日本01, 日本02, 日本03, 日本04, 日本05, 美国01, 美国02, 美国03, 美国04, 美国05, 台湾01, 台湾02, 台湾03, 台湾04, 台湾05, 韩国01, 韩国02, 印度尼西亚, 意大利, 澳大利亚, 越南, '马来西亚[3.0]', '澳门 [2.0]', '菲律宾 [2.0]', '柬埔寨 [2.0]', '老挝 [2.0]', '缅甸 [2.0]', '巴基斯坦 [2.0]', '阿根廷 [2.0]', '埃及 [2.0]', 迪拜, 法国, 荷兰, 瑞典, 沙特阿拉伯, 以色列, 南非, 巴西, 德国, '尼日利亚[3.0]', 土耳其, 英国] }
+rules:
+    - 'DOMAIN,readapi.zziot.life,DIRECT'
+    - 'IP-CIDR,8.134.152.191/32,DIRECT,no-resolve'
+    - 'IP-CIDR,8.134.107.77/32,DIRECT,no-resolve'
+    - 'IP-CIDR,8.134.250.119/32,DIRECT,no-resolve'
+    - 'IP-CIDR,132.232.133.234/32,DIRECT,no-resolve'
+    - 'IP-CIDR,139.155.145.118/32,DIRECT,no-resolve'
+    - 'IP-CIDR,8.138.251.121/32,DIRECT,no-resolve'
+    - 'IP-CIDR,8.138.59.17/32,DIRECT,no-resolve'
+    - 'DOMAIN-SUFFIX,dlandroid.rcv.sandai.net,Aladdin Network'
+    - 'DOMAIN-SUFFIX,embylife.xyz,Aladdin Network'
+    - 'DOMAIN-SUFFIX,emby.moe,Aladdin Network'
+    - 'DOMAIN-SUFFIX,xxlb.net,Aladdin Network'
+    - 'DOMAIN-SUFFIX,s.outong-valve.com,DIRECT'
+    - 'DOMAIN-SUFFIX,liminalnet.site,Aladdin Network'
+    - 'DOMAIN-SUFFIX,ectrip.com,DIRECT'
+    - 'PROCESS-NAME,WsaClient.exe,Aladdin Network'
+    - 'PROCESS-NAME,wpsoffice.exe,DIRECT'
+    - 'PROCESS-NAME,wps.exe,DIRECT'
+    - 'PROCESS-NAME,ET.exe,DIRECT'
+    - 'PROCESS-NAME,Doubao.exe,DIRECT'
+    - 'PROCESS-NAME,crashpad_handler.exe,DIRECT'
+    - 'PROCESS-NAME,TextInputHost.exe,DIRECT'
+    - 'PROCESS-NAME,UserOOBEBroker.exe,DIRECT'
+    - 'PROCESS-NAME,fontdrvhost.exe,DIRECT'
+    - 'PROCESS-NAME,verge-mihomo.exe,DIRECT'
+    - 'PROCESS-NAME,VideoUI.exe,DIRECT'
+    - 'PROCESS-NAME,MAL.exe,DIRECT'
+    - 'PROCESS-NAME,svchost.exe,DIRECT'
+    - 'PROCESS-NAME,smss.exe,DIRECT'
+    - 'PROCESS-NAME,wininit.exe,DIRECT'
+    - 'PROCESS-NAME,WUHFHost.exe,DIRECT'
+    - 'PROCESS-NAME,taskhostw.exe,DIRECT'
+    - 'PROCESS-NAME,audiodg.exe,DIRECT'
+    - 'PROCESS-NAME,explorer.exe,DIRECT'
+    - 'PROCESS-NAME,wmiprvSE.exe,DIRECT'
+    - 'PROCESS-NAME,YoudaoDictHelper.exe,DIRECT'
+    - 'PROCESS-NAME,services.exe,DIRECT'
+    - 'PROCESS-NAME,spoolsv.exe,DIRECT'
+    - 'PROCESS-NAME,VolSnapshotX64.exe,DIRECT'
+    - 'PROCESS-NAME,conhost.exe,DIRECT'
+    - 'PROCESS-NAME,taskmgr.exe,DIRECT'
+    - 'PROCESS-NAME,systemsettings.exe,DIRECT'
+    - 'PROCESS-NAME,msedgewebview2.exe,DIRECT'
+    - 'PROCESS-NAME,SGTool.exe,DIRECT'
+    - 'PROCESS-NAME,qmbsrv.exe,DIRECT'
+    - 'PROCESS-NAME,YoudaoDict.exe,DIRECT'
+    - 'PROCESS-NAME,QQPCExternal.exe,DIRECT'
+    - 'PROCESS-NAME,QQPCRTP.exe,DIRECT'
+    - 'PROCESS-NAME,QQPCTray.exe,DIRECT'
+    - 'PROCESS-NAME,dwm.exe,DIRECT'
+    - 'PROCESS-NAME,AweSun.exe,DIRECT'
+    - 'PROCESS-NAME,Weixin.exe,DIRECT'
+    - 'PROCESS-NAME,downloader.exe,DIRECT'
+    - 'PROCESS-NAME,OcxConfigClient.exe,DIRECT'
+    - 'PROCESS-NAME,tidecoin-qt.exe,DIRECT'
+    - 'PROCESS-NAME,DingTalk.exe,DIRECT'
+    - 'PROCESS-NAME,DingtalkLauncher.exe,DIRECT'
+    - 'PROCESS-NAME,iTunes.exe,DIRECT'
+    - 'PROCESS-NAME,GacRunner.exe,DIRECT'
+    - 'PROCESS-NAME,LootHoarder.exe,DIRECT'
+    - 'PROCESS-NAME,WeChatAppEx.exe,DIRECT'
+    - 'PROCESS-NAME,Binance.exe,DIRECT'
+    - 'PROCESS-NAME,ispirit.exe,DIRECT'
+    - 'PROCESS-NAME,HyperPlay.exe,DIRECT'
+    - 'PROCESS-NAME,desktop.exe,DIRECT'
+    - 'PROCESS-NAME,JianyingPro.exe,DIRECT'
+    - 'PROCESS-NAME,uppdater.exe,DIRECT'
+    - 'PROCESS-NAME,WeChatappEx.exe,DIRECT'
+    - 'PROCESS-NAME,MadGlobal-Win64-Shipping.exe,DIRECT'
+    - 'PROCESS-NAME,hexinhelper.exe,DIRECT'
+    - 'PROCESS-NAME,hexin.exe,DIRECT'
+    - 'PROCESS-NAME,MadGlobal.exe,DIRECT'
+    - 'PROCESS-NAME,比特浏览器.exe,DIRECT'
+    - 'PROCESS-NAME,uprock-mining.exe,DIRECT'
+    - 'PROCESS-NAME,phpcoin-wallet-win.exe,DIRECT'
+    - 'PROCESS-NAME,NightCrowsGLauncher.exe,DIRECT'
+    - 'PROCESS-NAME,LetsPRO.exe,DIRECT'
+    - 'PROCESS-NAME,Kryptokrona-wallet.exe,DIRECT'
+    - 'PROCESS-NAME,mCloud.exe,DIRECT'
+    - 'PROCESS-NAME,launcher.exe,DIRECT'
+    - 'PROCESS-NAME,UCCloudDrive.exe,DIRECT'
+    - 'PROCESS-NAME,千帆客服工作台.exe,DIRECT'
+    - 'PROCESS-NAME,OKX.exe,DIRECT'
+    - 'PROCESS-NAME,BaiduNetdisk.exe,DIRECT'
+    - 'PROCESS-NAME,eCloud.exe,DIRECT'
+    - 'PROCESS-NAME,tdxw.exe,DIRECT'
+    - 'PROCESS-NAME,hexinlauncher.exe,DIRECT'
+    - 'PROCESS-NAME,SunloginClient.exe,DIRECT'
+    - 'PROCESS-NAME,qq.exe,DIRECT'
+    - 'PROCESS-NAME,WeChat.exe,DIRECT'
+    - 'PROCESS-NAME,360chrome.exe,DIRECT'
+    - 'PROCESS-NAME,dnplayer.exe,DIRECT'
+    - 'PROCESS-NAME,dnmultiplayerex.exe,DIRECT'
+    - 'DOMAIN-SUFFIX,kdcloud.uk,Aladdin Network'
+    - 'DOMAIN-SUFFIX,koodog.com,Aladdin Network'
+    - 'DOMAIN-SUFFIX,kindo.cc,Aladdin Network'
+    - 'DOMAIN-SUFFIX,0085.top,Aladdin Network'
+    - 'DOMAIN-SUFFIX,avatargpt.xyz,Aladdin Network'
+    - 'DOMAIN-SUFFIX,aladingnet.com,Aladdin Network'
+    - 'DOMAIN-SUFFIX,aladingnet.xyz,Aladdin Network'
+    - 'DOMAIN-SUFFIX,aladdinnet.cc,Aladdin Network'
+    - 'DOMAIN-SUFFIX,zziot.life,Aladdin Network'
+    - 'DOMAIN-SUFFIX,ltdflix.space,Aladdin Network'
+    - 'DOMAIN-SUFFIX,thisgourl.xyz,Aladdin Network'
+    - 'RULE-SET,applications,DIRECT'
+    - 'RULE-SET,icloud,Apple'
+    - 'RULE-SET,apple,Apple'
+    - 'RULE-SET,youtube,Google1 Youtube'
+    - 'RULE-SET,google,Google2 Gemini'
+    - 'RULE-SET,telegramcidr,Telegram'
+    - 'RULE-SET,wechat,WeChat'
+    - 'RULE-SET,bilibili,Bili'
+    - 'RULE-SET,bahamut,Bahamut'
+    - 'RULE-SET,steam,Steam'
+    - 'RULE-SET,steamcn,SteamCN'
+    - 'RULE-SET,github,Github'
+    - 'RULE-SET,crypto,Crypto'
+    - 'RULE-SET,discord,Discord'
+    - 'RULE-SET,openai,ChatGPT'
+    - 'RULE-SET,Claude,Claude'
+    - 'RULE-SET,netflix,Netflix'
+    - 'RULE-SET,pikpak,Pikpak'
+    - 'RULE-SET,disney,Disney'
+    - 'RULE-SET,hbo,HBO'
+    - 'RULE-SET,globalmedia,OtherMedia'
+    - 'RULE-SET,paypal,Paypal'
+    - 'RULE-SET,twitter,Twitter'
+    - 'RULE-SET,Microsoft,Microsoft'
+    - 'RULE-SET,gfw,Aladdin Network'
+    - 'RULE-SET,tld-not-cn,Aladdin Network'
+    - 'GEOIP,CN,DIRECT'
+    - 'MATCH,Final'
