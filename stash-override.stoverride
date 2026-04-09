@@ -34,18 +34,17 @@ experimental:
 #   follow-rule: true  — DNS queries follow routing rules; foreign
 #     domain DNS resolves inside the tunnel instead of leaking. This
 #     makes plain CN DNS on nameserver sufficient and safe.
-#   nameserver-policy: #!replace  — only geoip:cn → CN DNS. Drops the
-#     managed config's custom *.digital-nvme.com entry, which is fine
-#     because that domain is CN-geolocated and resolves correctly via
-#     223.5.5.5 / 119.29.29.29 with follow-rule routing it DIRECT.
-dns:
+#   nameserver-policy: #!replace  — geoip:cn → 223.5.5.5, plus keeps
+#     the managed config's *.digital-nvme.com custom resolver which is
+#     required for proxy node hostname resolution.
+dns: #!replace
   enable: true
   listen: "0.0.0.0:53"
   ipv6: false
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   use-hosts: false
-  follow-rule: true
+  follow-rule: false
 
   default-nameserver: #!replace
     - 223.5.5.5
@@ -57,12 +56,11 @@ dns:
     - 223.5.5.5
     - 119.29.29.29
 
-  # geoip:cn → CN DNS only; all else falls through to fallback via
-  # respect-rules routing
+  # geoip:cn → CN DNS; *.digital-nvme.com → proxy provider's custom
+  # DNS resolver (required for node hostname resolution)
   nameserver-policy: #!replace
-    "geoip:cn":
-      - 223.5.5.5
-      - 119.29.29.29
+    "geoip:cn": "223.5.5.5"
+    '*.digital-nvme.com': '8.138.94.132:8053'
 
   fallback: #!replace
     - "https://dns.cloudflare.com/dns-query"
