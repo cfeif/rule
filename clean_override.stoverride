@@ -42,6 +42,7 @@ proxy-groups: #!replace
       - "🇹🇼 TW"
       - "🇰🇷 KR"
       - "🇨🇳 CN"
+      - "🎯 手动选择"
       - "⚡ 自动选择"
       - "♻️ 故障转移"
       - DIRECT
@@ -112,11 +113,11 @@ proxy-groups: #!replace
     interval: 300
     lazy: true
 
-  # - name: "🎯 手动选择"
-  #   type: select
-  #   include-all: true
-  #   interval: 300
-  #   lazy: true
+  - name: "🎯 手动选择"
+    type: select
+    include-all: true
+    interval: 300
+    lazy: true
 
   # ── Service groups ─────────────────────────────────────────────────────────
 
