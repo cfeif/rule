@@ -51,17 +51,18 @@ proxy-groups: #!replace
   - name: "🇭🇰 HK"
     type: url-test
     include-all: true
-    filter: "香港0[1-5]"
+    # filter: "香港0[1-5]"
+    filter: 香港|Hong Kong|HK
     interval: 300
     lazy: true
 
   # 香港06-10 — for YouTube to CN
-  - name: "🇨🇳 CN"
-    type: url-test
-    include-all: true
-    filter: "香港0[6-9]|香港10"
-    interval: 300
-    lazy: true
+  #- name: "🇨🇳 CN"
+  #  type: url-test
+  #  include-all: true
+  #  filter: "香港0[6-9]|香港10"
+  #  interval: 300
+  #  lazy: true
 
   - name: "🇸🇬 SG"
     type: url-test
@@ -143,7 +144,7 @@ proxy-groups: #!replace
   - name: "▶️ YouTube"
     type: select
     proxies:
-      - "🇨🇳 CN"
+     # - "🇨🇳 CN"
       - "🚀 Proxy"
 
   - name: "🍎 苹果"
