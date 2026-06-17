@@ -145,6 +145,8 @@ proxy-groups: #!replace
     type: select
     proxies:
      # - "🇨🇳 CN"
+      - "🇸🇬 SG"
+      - "🇯🇵 JP"
       - "🚀 Proxy"
 
   - name: "🍎 苹果"
