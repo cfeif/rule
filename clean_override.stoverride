@@ -1,5 +1,5 @@
-name: Aladdin Override
-desc: Clean override for Aladdin profile
+name: General Override
+desc: Clean override for Stash general profile
 
 # ── Script shortcuts ──────────────────────────────────────────────────────────
 # QUIC (HTTP/3, UDP/443) bypasses TCP-based proxy protocols.
