@@ -56,11 +56,11 @@ proxy-groups: #!replace
     interval: 300
     lazy: true
 
-  # 香港06-10 — for YouTube to CN
+  # 香港免广告 — for YouTube to CN
   - name: "🇨🇳 CN"
     type: url-test
     include-all: true
-    filter: "香港[免广告]"
+    filter: "香港.*免广告"
     interval: 300
     lazy: true
 
