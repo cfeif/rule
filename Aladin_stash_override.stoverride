@@ -60,7 +60,7 @@ proxy-groups: #!replace
   - name: "🇨🇳 CN"
     type: url-test
     include-all: true
-    filter: "香港.*免广告"
+    filter: "香港.*送中"
     interval: 300
     lazy: true
 
