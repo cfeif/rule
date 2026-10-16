@@ -51,7 +51,7 @@ proxy-groups: #!replace
   - name: "🇭🇰 HK"
     type: url-test
     include-all: true
-    # filter: "香港0[1-5]"
+    # filter: "^(?=.*香港)(?!.*送中).*$"
     filter: 香港|Hong Kong|HK
     interval: 300
     lazy: true
