@@ -293,7 +293,7 @@ rules: #!replace
   - DOMAIN-SUFFIX,podcastsservices.apple.com,🚀 Proxy
   - DOMAIN-SUFFIX,bookkeeper.itunes.apple.com,🚀 Proxy
   - RULE-SET,apple,🍎 苹果
-  - RULE-SET,appletv,🍎 苹果
+  # - RULE-SET,appletv,🍎 苹果
 
   # 5. Streaming
   - RULE-SET,youtube,▶️ YouTube
