@@ -288,6 +288,7 @@ rules: #!replace
 
   # 2. Ads - block before any routing
   - RULE-SET,ads,🛑 广告
+	- RULE-SET,cn_ads,🛑 广告
 
   # 3. Block QUIC / HTTP3
   # - SCRIPT,quic,REJECT
