@@ -186,11 +186,6 @@ rule-providers: #!replace
     url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AdvertisingLite/AdvertisingLite_No_Resolve.yaml"
     interval: 86400
 
-  cn_ads:
-    behavior: classical
-    url: "https://fastly.jsdelivr.net/gh/abclq/home-dns-adblock@main/dist/clash-surge-rules.txt"
-    interval: 86400
-
   # ── AI (blackmatrix7) ──────────────────────────────────────────────────────
   openai:
     behavior: classical
@@ -288,7 +283,81 @@ rules: #!replace
 
   # 2. Ads - block before any routing
   - RULE-SET,ads,🛑 广告
-  - RULE-SET,cn_ads,🛑 广告
+  - DOMAIN-SUFFIX,activity-ag.awemeughun.com,🛑 广告
+  - DOMAIN-SUFFIX,ad.toutiao.com,🛑 广告
+  - DOMAIN-SUFFIX,ads-vp5.xhscdn.com,🛑 广告
+  - DOMAIN-SUFFIX,ads3-normal-hl.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,ads3-normal-lf.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,ads3-normal-lq.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,ads5-normal-hl.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,ads5-normal-lf.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,ads5-normal-lq.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,aeventlog.beacon.qq.com,🛑 广告
+  - DOMAIN-SUFFIX,apd-pcdnwxlogin.teg.tencent-cloud.net,🛑 广告
+  - DOMAIN-SUFFIX,api-access.pangolin-sdk-toutiao.com,🛑 广告
+  - DOMAIN-SUFFIX,api-access.pangolin-sdk-toutiao1.com,🛑 广告
+  - DOMAIN-SUFFIX,api.iegadp.qq.com,🛑 广告
+  - DOMAIN-SUFFIX,apm-native.xiaohongshu.com,🛑 广告
+  - DOMAIN-SUFFIX,cnlogs.umeng.com,🛑 广告
+  - DOMAIN-SUFFIX,comfylink.com,🛑 广告
+  - DOMAIN-SUFFIX,dig.bdurl.net,🛑 广告
+  - DOMAIN-SUFFIX,dns.alidns.com,🛑 广告
+  - DOMAIN-SUFFIX,doh.pub,🛑 广告
+  - DOMAIN-SUFFIX,errnewlog.umeng.com,🛑 广告
+  - DOMAIN-SUFFIX,jomoxc.com,🛑 广告
+  - DOMAIN-SUFFIX,l2-toutiao-quic-ipv6-ml.gslb.ksyuncdn.com,🛑 广告
+  - DOMAIN-SUFFIX,lng.xiaohongshu.com,🛑 广告
+  - DOMAIN-SUFFIX,log-api.pangolin-sdk-toutiao.com,🛑 广告
+  - DOMAIN-SUFFIX,log3-applog-lf.fqnovel.com,🛑 广告
+  - DOMAIN-SUFFIX,log5-applog-hl.fqnovel.com,🛑 广告
+  - DOMAIN-SUFFIX,log5-applog-lf.fqnovel.com,🛑 广告
+  - DOMAIN-SUFFIX,minigame3-normal-hl.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,minigame3-normal-lf.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,minigame3-normal-lq.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,minigame5-normal-hl.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,minigame5-normal-lf.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,minigame5-normal-lq.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,mon11-misc-hl.fqnovel.com,🛑 广告
+  - DOMAIN-SUFFIX,mon11-misc-lf.fqnovel.com,🛑 广告
+  - DOMAIN-SUFFIX,mon3-misc-lf.fqnovel.com,🛑 广告
+  - DOMAIN-SUFFIX,msync-im1-vip6-std.easemob.com,🛑 广告
+  - DOMAIN-SUFFIX,ndcpp.com,🛑 广告
+  - DOMAIN-SUFFIX,ossnt-errlog.umeng.com,🛑 广告
+  - DOMAIN-SUFFIX,p3-ad-sign.byteimg.com,🛑 广告
+  - DOMAIN-SUFFIX,p6-ad-sign.byteimg.com,🛑 广告
+  - DOMAIN-SUFFIX,p9-ad-sign.byteimg.com,🛑 广告
+  - DOMAIN-SUFFIX,pangle.io,🛑 广告
+  - DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,🛑 广告
+  - DOMAIN-SUFFIX,pglstatp-toutiao.com,🛑 广告
+  - DOMAIN-SUFFIX,praisewindow.ugsdk.cn,🛑 广告
+  - DOMAIN-SUFFIX,qrstuvwxyzab.com,🛑 广告
+  - DOMAIN-SUFFIX,rtlog3-applog-hl.fqnovel.com,🛑 广告
+  - DOMAIN-SUFFIX,rtlog3-applog-lf.fqnovel.com,🛑 广告
+  - DOMAIN-SUFFIX,rtlog5-applog-hl.fqnovel.com,🛑 广告
+  - DOMAIN-SUFFIX,rtlog5-applog-lf.fqnovel.com,🛑 广告
+  - DOMAIN-SUFFIX,sf3-ttcdn-tos.pstatp.com,🛑 广告
+  - DOMAIN-SUFFIX,spider-tracker.xiaohongshu.com,🛑 广告
+  - DOMAIN-SUFFIX,tnc0-aliec2.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,tnc0-alisc1.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,tnc3-aliec2.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,tnc3-alisc1.zijieapi.com,🛑 广告
+  - DOMAIN-SUFFIX,tracker.xiaomixiaoai.com,🛑 广告
+  - DOMAIN-SUFFIX,ulogs.umeng.com,🛑 广告
+  - DOMAIN-SUFFIX,v11-reading-ad.qznovelvod.com,🛑 广告
+  - DOMAIN-SUFFIX,v13-reading-ad.qznovelvod.com,🛑 广告
+  - DOMAIN-SUFFIX,v26-reading-ad.qznovelvod.com,🛑 广告
+  - DOMAIN-SUFFIX,v5-bd-daily-reading-ad.qznovelvod.com,🛑 广告
+  - DOMAIN-SUFFIX,v5-reading-ad.qznovelvod.com,🛑 广告
+  - DOMAIN-SUFFIX,v5-se-sjy-daily-reading-ad.qznovelvod.com,🛑 广告
+  - DOMAIN-SUFFIX,v6-reading-ad.qznovelvod.com,🛑 广告
+  - DOMAIN-SUFFIX,v9-reading-ad.qznovelvod.com,🛑 广告
+  - DOMAIN-SUFFIX,v96-reading-ad.qznovelvod.com,🛑 广告
+  - DOMAIN-SUFFIX,webcast5-open-hl.douyin.com,🛑 广告
+  - DOMAIN-SUFFIX,webcast5-open-hl.douyin.com.c.dsa.cdnbuild.net,🛑 广告
+  - DOMAIN-SUFFIX,wmzfylgdsz.com,🛑 广告
+  - DOMAIN-SUFFIX,wuchuyun.com,🛑 广告
+  - DOMAIN-SUFFIX,xinqiucc.com,🛑 广告
+  - DOMAIN-SUFFIX,ydycdn.com,🛑 广告
 
   # 3. Block QUIC / HTTP3
   # - SCRIPT,quic,REJECT
